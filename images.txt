@@ -1,1 +1,1 @@
-wurstmeister/kafka:2.12-3.6.0
+bitnami/kafka:3.6.0
