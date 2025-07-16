@@ -1,1 +1,1 @@
-bitnami/kafka:3.6.0
+onlyoffice/documentserver:7.5
