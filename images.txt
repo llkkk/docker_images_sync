@@ -1,1 +1,1 @@
-onlyoffice/documentserver:7.5
+ghcr.io/sky22333/ansible-ui
