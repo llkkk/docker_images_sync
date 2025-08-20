@@ -101,9 +101,15 @@ set FAILED_TAGS=
 for %%t in (%*) do (
     set TAG=%%t
     echo [pull images] Processing tag: !TAG!
-    :: 提取最后一部分 (bbb:xxx)
-    for /f "delims=" %%p in ("!TAG!") do set "LAST_PART=%%~nxp"
-    set FULL_TAG=!REGISTRY_URL!/!REGISTRY_NS!/!LAST_PART!
+    
+    :: 提取最后一部分并处理名称转换
+    for /f "delims=" %%p in ("!TAG!") do set "ORIGINAL_LAST_PART=%%~nxp"
+    
+    :: 将下划线替换为斜杠，恢复原始路径结构
+    set "RESTORED_PART=!ORIGINAL_LAST_PART!"
+    set "RESTORED_PART=!RESTORED_PART:_=/!"
+    
+    set FULL_TAG=!REGISTRY_URL!/!REGISTRY_NS!/!RESTORED_PART!
     set SUCCESS=0
     
     for /l %%a in (1,1,!MAX_RETRIES!) do (

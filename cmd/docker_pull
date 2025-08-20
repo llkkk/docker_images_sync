@@ -100,9 +100,13 @@ sleep "$FIRST_DELAY"
 FAILED_TAGS=()
 for tag in "$@"; do
     echo "[pull images] Processing tag: $tag"
-    # Extract last part (bbb:xxx)
-    last_part=$(basename "$tag")
-    full_tag="$REGISTRY_URL/$REGISTRY_NS/$last_part"
+    # Extract last part (bbb:xxx) and restore path structure
+    original_last_part=$(basename "$tag")
+    
+    # Replace underscores with slashes to restore original path structure
+    restored_part="${original_last_part//_//}"
+    
+    full_tag="$REGISTRY_URL/$REGISTRY_NS/$restored_part"
     success=0
     
     for ((attempt=1; attempt<=MAX_RETRIES; attempt++)); do
